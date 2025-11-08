@@ -99,12 +99,24 @@ export function importFromMagicyanFile(fileContent: string): ResumeData {
     }
 
     const now = new Date().toISOString()
+    
+    // 处理布局配置：优先使用新的layout属性，如果不存在则从旧的personalInfoInline转换
+    let layout = data.personalInfoSection?.layout
+    if (!layout) {
+      // 向后兼容：从旧的personalInfoInline属性转换
+      const personalInfoInline = (data.personalInfoSection as any)?.personalInfoInline
+      layout = {
+        mode: personalInfoInline ? 'inline' : 'grid',
+        itemsPerRow: personalInfoInline ? undefined : 2
+      }
+    }
+    
     return {
       ...data,
       personalInfoSection: {
         personalInfo: data.personalInfoSection?.personalInfo || [],
         showPersonalInfoLabels: data.personalInfoSection?.showPersonalInfoLabels !== undefined ? data.personalInfoSection.showPersonalInfoLabels : true,
-        personalInfoInline: data.personalInfoSection?.personalInfoInline !== undefined ? data.personalInfoSection.personalInfoInline : false,
+        layout: layout,
       },
       createdAt: data.createdAt || now,
       updatedAt: now,

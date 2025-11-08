@@ -27,6 +27,16 @@ export interface PersonalInfoItem {
 }
 
 /**
+ * 个人信息布局配置接口
+ */
+export interface PersonalInfoLayout {
+  /** 布局模式：inline（一行紧凑显示）或 grid（网格布局） */
+  mode: 'inline' | 'grid'
+  /** grid模式下的每行项目数（1-6列可选，仅当mode为grid时使用） */
+  itemsPerRow?: 1 | 2 | 3 | 4 | 5 | 6
+}
+
+/**
  * 个人信息模块的数据结构
  */
 export interface PersonalInfoSection {
@@ -34,8 +44,8 @@ export interface PersonalInfoSection {
   personalInfo: PersonalInfoItem[]
   /** 是否显示个人信息标签 */
   showPersonalInfoLabels?: boolean
-  /** 是否单行显示个人信息 */
-  personalInfoInline?: boolean
+  /** 个人信息布局配置 */
+  layout: PersonalInfoLayout
 }
 
 /**

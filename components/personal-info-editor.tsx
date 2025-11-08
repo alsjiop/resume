@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/select";
 import { Icon } from "@iconify/react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
-import type { PersonalInfoItem, PersonalInfoSection } from "@/types/resume";
+import type { PersonalInfoItem, PersonalInfoSection, PersonalInfoLayout } from "@/types/resume";
 import { createNewPersonalInfoItem } from "@/lib/resume-utils";
 import IconPicker from "./icon-picker";
 
@@ -52,9 +52,20 @@ export default function PersonalInfoEditor({
   const [showLabels, setShowLabels] = useState(
     personalInfoSection?.showPersonalInfoLabels !== false
   );
-  const [personalInfoInline, setPersonalInfoInline] = useState(
-    personalInfoSection?.personalInfoInline === true
-  );
+  const [layout, setLayout] = useState<PersonalInfoLayout>(() => {
+    if (personalInfoSection?.layout) {
+      return personalInfoSection.layout;
+    }
+    // 向后兼容：如果有personalInfoInline则使用它
+    const hasPersonalInfoInline = (personalInfoSection as any)?.personalInfoInline;
+    if (hasPersonalInfoInline !== undefined) {
+      return {
+        mode: hasPersonalInfoInline ? 'inline' : 'grid',
+        itemsPerRow: hasPersonalInfoInline ? undefined : 2
+      };
+    }
+    return { mode: 'grid', itemsPerRow: 2 };
+  });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // 提取personalInfo到局部变量以简化代码，如果personalInfoSection不存在则使用空数组
@@ -103,15 +114,33 @@ export default function PersonalInfoEditor({
   };
 
   /**
-   * 切换单行显示
+   * 切换布局模式
    */
-  const togglePersonalInfoInline = () => {
+  const toggleLayoutMode = () => {
     if (!personalInfoSection) return;
-    const newPersonalInfoInline = !personalInfoInline;
-    setPersonalInfoInline(newPersonalInfoInline);
+    const newMode = layout.mode === 'inline' ? 'grid' : 'inline';
+    const newLayout: PersonalInfoLayout = { ...layout, mode: newMode as 'inline' | 'grid' };
+    setLayout(newLayout);
     onUpdate({
       ...personalInfoSection,
-      personalInfoInline: newPersonalInfoInline
+      layout: newLayout
+    });
+  };
+
+  /**
+   * 设置每行列数
+   */
+  const handleItemsPerRowChange = (itemsPerRow: 1 | 2 | 3 | 4 | 5 | 6) => {
+    if (!personalInfoSection) return;
+    const newLayout: PersonalInfoLayout = {
+      ...layout,
+      mode: 'grid',
+      itemsPerRow
+    };
+    setLayout(newLayout);
+    onUpdate({
+      ...personalInfoSection,
+      layout: newLayout
     });
   };
 
@@ -124,9 +153,23 @@ export default function PersonalInfoEditor({
     // 同步 personalInfoSection 的变化，更新本地状态
     if (personalInfoSection) {
       setShowLabels(personalInfoSection?.showPersonalInfoLabels !== false);
-      setPersonalInfoInline(personalInfoSection?.personalInfoInline === true);
+      
+      // 更新layout状态
+      if (personalInfoSection.layout) {
+        setLayout(personalInfoSection.layout);
+      } else {
+        // 向后兼容：如果有personalInfoInline则转换
+        const hasPersonalInfoInline = (personalInfoSection as any)?.personalInfoInline;
+        if (hasPersonalInfoInline !== undefined) {
+          const newLayout: PersonalInfoLayout = {
+            mode: hasPersonalInfoInline ? 'inline' : 'grid',
+            itemsPerRow: hasPersonalInfoInline ? undefined : 2
+          };
+          setLayout(newLayout);
+        }
+      }
     }
-  }, [personalInfoSection?.showPersonalInfoLabels, personalInfoSection?.personalInfoInline]);
+  }, [personalInfoSection?.showPersonalInfoLabels, personalInfoSection?.layout]);
 
   /**
    * 处理文件上传
@@ -183,9 +226,24 @@ export default function PersonalInfoEditor({
   const removePersonalInfoItem = (id: string) => {
     if (!personalInfoSection) return;
     const updatedInfo = personalInfo.filter((item) => item.id !== id);
+    
+    // 如果删除后，当前列数大于剩余项目数，自动调整列数
+    const maxCols = Math.max(Math.min(6, updatedInfo.length), 1);
+    const currentCols = layout.itemsPerRow || 2;
+    let newLayout = { ...layout };
+    
+    if (currentCols > maxCols) {
+      newLayout = {
+        ...layout,
+        itemsPerRow: maxCols as 1 | 2 | 3 | 4 | 5 | 6
+      };
+      setLayout(newLayout);
+    }
+    
     onUpdate({
       ...personalInfoSection,
-      personalInfo: updatedInfo
+      personalInfo: updatedInfo,
+      layout: newLayout
     }, avatarUrl);
   };
 
@@ -205,16 +263,40 @@ export default function PersonalInfoEditor({
           <Icon icon="mdi:account-circle" className="w-5 h-5 text-primary" />
           <h2 className="section-title">个人信息</h2>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Button
             size="sm"
             variant="outline"
-            onClick={togglePersonalInfoInline}
+            onClick={toggleLayoutMode}
             className="gap-2 bg-transparent"
           >
-            <Icon icon={personalInfoInline ? "mdi:view-sequential" : "mdi:view-column"} className="w-4 h-4" />
-            {personalInfoInline ? "多行显示" : "单行显示"}
+            <Icon icon={layout.mode === 'inline' ? "mdi:view-column" : "mdi:view-sequential"} className="w-4 h-4" />
+            {layout.mode === 'inline' ? "单行显示" : "多行显示"}
           </Button>
+          
+          {/* 每行列数选择器 - 只在grid模式下显示 */}
+          {layout.mode === 'grid' && (
+            <Select
+              value={String(layout.itemsPerRow || 2)}
+              onValueChange={(value) => handleItemsPerRowChange(Number(value) as 1 | 2 | 3 | 4 | 5 | 6)}
+            >
+              <SelectTrigger className="h-9 w-24">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[1, 2, 3, 4, 5, 6].map((num) => {
+                  const maxCols = Math.max(Math.min(6, personalInfo.length), 1);
+                  if (num > maxCols) return null;
+                  return (
+                    <SelectItem key={num} value={String(num)}>
+                      {num}列
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
+          )}
+          
           <Button
             size="sm"
             variant="outline"
@@ -348,14 +430,14 @@ function PersonalInfoItemEditor({
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   return (
-    <div className="flex items-start gap-3 p-3 border rounded-lg bg-muted/30">
+    <div className="flex items-start gap-2 p-2 border rounded-lg bg-muted/30">
       {/* 图标选择 */}
       <Dialog>
         <DialogTrigger asChild>
           <Button
             variant="outline"
             size="sm"
-            className="icon-button-personal-info bg-transparent w-8 h-8 p-0 flex items-center justify-center"
+            className="icon-button-personal-info bg-transparent w-8 h-8 p-0 flex items-center justify-center flex-shrink-0"
           >
             {item.icon && (
               <svg
@@ -380,27 +462,27 @@ function PersonalInfoItemEditor({
       </Dialog>
 
       {/* 单行布局：标签 | 类型 | 值输入 | 删除 | 拖拽手柄 */}
-      <div className="flex-1 flex items-end gap-4">
+      <div className="flex-1 flex items-end gap-2 min-w-0">
         {/* 标签 */}
-        <div className="w-36 flex-shrink-0">
+        <div className="flex-[0_0_auto] min-w-[80px] max-w-[120px]">
           <div className="h-8 flex flex-col justify-end">
             <Input
               value={item.label}
               onChange={(e) => onUpdate({ label: e.target.value })}
               placeholder="标签"
-              className="h-8 placeholder:text-gray-400"
+              className="h-8 placeholder:text-gray-400 text-sm"
             />
           </div>
         </div>
 
         {/* 类型选择 */}
-        <div className="w-20 flex-shrink-0">
+        <div className="flex-[0_0_auto] w-[60px]">
           <div className="h-8 flex flex-col justify-end">
             <Select
               value={item.value.type || "text"}
               onValueChange={(value: "text" | "link") => onUpdate({ value: { ...item.value, type: value } })}
             >
-              <SelectTrigger className="h-8 py-0 px-3 text-sm border-gray-200">
+              <SelectTrigger className="h-8 py-0 px-2 text-xs border-gray-200">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -414,21 +496,21 @@ function PersonalInfoItemEditor({
         {/* 值输入 */}
         <div className="flex-1 min-w-0">
           {item.value.type === "link" ? (
-            <div className="flex gap-2 h-8">
-              <div className="flex-1 h-8 flex flex-col justify-end">
+            <div className="flex gap-1 h-8">
+              <div className="flex-1 h-8 flex flex-col justify-end min-w-0">
                 <Input
                   value={item.value.content}
                   onChange={(e) => onUpdate({ value: { ...item.value, content: e.target.value } })}
                   placeholder="链接地址"
-                  className="h-8 w-full placeholder:text-gray-400"
+                  className="h-8 w-full placeholder:text-gray-400 text-sm"
                 />
               </div>
-              <div className="flex-1 h-8 flex flex-col justify-end">
+              <div className="flex-1 h-8 flex flex-col justify-end min-w-0">
                 <Input
                   value={item.value.title || ""}
                   onChange={(e) => onUpdate({ value: { ...item.value, title: e.target.value } })}
                   placeholder="显示标题"
-                  className="h-8 w-full placeholder:text-gray-400"
+                  className="h-8 w-full placeholder:text-gray-400 text-sm"
                 />
               </div>
             </div>
@@ -438,20 +520,20 @@ function PersonalInfoItemEditor({
                 value={item.value.content}
                 onChange={(e) => onUpdate({ value: { ...item.value, content: e.target.value } })}
                 placeholder="内容"
-                className="h-8 w-full placeholder:text-gray-400"
+                className="h-8 w-full placeholder:text-gray-400 text-sm"
               />
             </div>
           )}
         </div>
 
         {/* 删除按钮和拖拽手柄组 */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 flex-[0_0_auto]">
           {/* 删除按钮 */}
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setShowDeleteConfirm(true)}
-            className="icon-button text-destructive hover:text-destructive h-8 w-8 p-0"
+            className="icon-button text-destructive hover:text-destructive h-8 w-8 p-0 flex-shrink-0"
           >
             <Icon icon="mdi:delete" className="w-4 h-4" />
           </Button>
@@ -459,7 +541,7 @@ function PersonalInfoItemEditor({
           {/* 拖拽手柄 */}
           <div
             {...dragHandleProps}
-            className={`flex items-center justify-center w-8 h-8 rounded cursor-grab active:cursor-grabbing text-muted-foreground hover:text-foreground ${isDragging ? 'text-foreground' : ''}`}
+            className={`flex items-center justify-center w-8 h-8 rounded cursor-grab active:cursor-grabbing text-muted-foreground hover:text-foreground flex-shrink-0 ${isDragging ? 'text-foreground' : ''}`}
           >
             <Icon icon="mdi:drag" className="w-4 h-4" />
           </div>

@@ -21,8 +21,9 @@ export default function ResumePreview({ resumeData }: ResumePreviewProps) {
           </h1>
 
           {/* 个人信息 */}
-          {resumeData.personalInfoSection?.personalInfoInline ? (
-            /* 单行显示模式 */
+          {(resumeData.personalInfoSection?.layout?.mode === 'inline' ||
+            (resumeData.personalInfoSection?.layout?.mode === undefined && (resumeData.personalInfoSection as any)?.personalInfoInline)) ? (
+            /* 单行显示模式（inline） */
             <div className="personal-info flex flex-wrap items-center gap-x-4 gap-y-2">
               {resumeData.personalInfoSection?.personalInfo.map((item, index) => (
                 <div
@@ -63,17 +64,25 @@ export default function ResumePreview({ resumeData }: ResumePreviewProps) {
               ))}
             </div>
           ) : (
-            /* 多行显示模式（原有的网格布局） */
-            <div className="personal-info grid grid-cols-2 gap-x-6 gap-y-2">
+            /* 多行显示模式（grid）- 动态列数布局 */
+            <div
+              className="personal-info"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(${resumeData.personalInfoSection?.layout?.itemsPerRow || 2}, auto)`,
+                gap: '0.5rem 1rem',
+                justifyContent: 'start',
+                alignItems: 'center'
+              }}
+            >
               {resumeData.personalInfoSection?.personalInfo.map((item) => (
                 <div
                   key={item.id}
-                  className="personal-info-item flex items-center gap-2"
+                  className="personal-info-item flex items-center gap-1"
                 >
                   {item.icon && (
                     <svg
-                      className="resume-icon w-4 h-4
-                       flex-shrink-0 transform -translate-y-[-1px]"
+                      className="resume-icon w-4 h-4 flex-shrink-0 transform -translate-y-[-1px]"
                       fill="black"
                       width={16}
                       height={16}

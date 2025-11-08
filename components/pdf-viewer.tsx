@@ -185,27 +185,65 @@ const renderIcon = ({ icon, size, style }: IconType) => {
 };
 
 // 渲染个人信息项
-const renderPersonalInfoItem = (item: any, showLabels: boolean, isInline: boolean) => (
-  <View key={item.id} style={isInline ? styles.personalInfoInlineItem : styles.personalInfoItem}>
-    {renderIcon({
-      icon: item.icon,
-      size: 12,
-      style: { marginRight: 5, marginTop: 1 },
-    })}
-    {showLabels && <Text style={styles.label}>{item.label}:</Text>}
-    {item.value.type === "link" && item.value.content ? (
-      <Text style={styles.value}>{item.value.title || "点击访问"}</Text>
-    ) : (
-      <Text style={styles.value}>{item.value.content || "未填写"}</Text>
-    )}
-  </View>
-);
+const renderPersonalInfoItem = (item: any, showLabels: boolean, isInline: boolean, itemsPerRow?: number) => {
+  const itemStyle = isInline
+    ? styles.personalInfoInlineItem
+    : getPersonalInfoItemStyle(itemsPerRow);
+  
+  return (
+    <View key={item.id} style={itemStyle}>
+      {renderIcon({
+        icon: item.icon,
+        size: 12,
+        style: { marginRight: 5, marginTop: 1 },
+      })}
+      {showLabels && <Text style={styles.label}>{item.label}:</Text>}
+      {item.value.type === "link" && item.value.content ? (
+        <Text style={styles.value}>{item.value.title || "点击访问"}</Text>
+      ) : (
+        <Text style={styles.value}>{item.value.content || "未填写"}</Text>
+      )}
+    </View>
+  );
+};
+
+// 动态生成个人信息的网格样式
+const getPersonalInfoGridStyle = (itemsPerRow?: number) => {
+  const items = itemsPerRow || 2;
+  const itemWidth = `${100 / items}%`;
+  return {
+    flexDirection: "row" as const,
+    flexWrap: "wrap" as const,
+    width: "100%",
+  };
+};
+
+// 动态生成个人信息项的样式
+const getPersonalInfoItemStyle = (itemsPerRow?: number) => {
+  const items = itemsPerRow || 2;
+  const itemWidth = `${100 / items}%`;
+  return {
+    flexDirection: "row" as const,
+    alignItems: "center" as const,
+    width: itemWidth,
+    marginBottom: 5,
+  };
+};
 
 // 简历PDF文档组件
 const ResumePDF = ({ resumeData }: { resumeData: ResumeData }) => {
-  const isInline = resumeData.personalInfoSection?.personalInfoInline === true;
-  const showLabels = resumeData.personalInfoSection?.showPersonalInfoLabels !== false;
-  const personalInfoItems = resumeData.personalInfoSection?.personalInfo || [];
+  // 向后兼容：支持personalInfoInline和新的layout配置
+  const personalInfoSection = resumeData.personalInfoSection;
+  const isInline = personalInfoSection?.layout?.mode === 'inline' ||
+    (personalInfoSection?.layout?.mode === undefined && (personalInfoSection as any)?.personalInfoInline);
+  const itemsPerRow = personalInfoSection?.layout?.itemsPerRow || 2;
+  const showLabels = personalInfoSection?.showPersonalInfoLabels !== false;
+  const personalInfoItems = personalInfoSection?.personalInfo || [];
+
+  // 动态生成容器样式
+  const containerStyle = isInline
+    ? styles.personalInfoInline
+    : getPersonalInfoGridStyle(itemsPerRow);
 
   return (
     <Document>
@@ -216,20 +254,24 @@ const ResumePDF = ({ resumeData }: { resumeData: ResumeData }) => {
             <Text style={styles.title}>{resumeData.title || "简历标题"}</Text>
 
             {/* 个人信息 */}
-            <View style={isInline ? styles.personalInfoInline : styles.personalInfo}>
+            <View style={containerStyle}>
               {isInline ? (
                 // 单行显示模式
-                personalInfoItems.map((item, index) => (
-                  <View key={item.id} style={{ flexDirection: "row", alignItems: "center" }}>
-                    {renderPersonalInfoItem(item, showLabels, true)}
-                    {index < personalInfoItems.length - 1 && (
-                      <Text style={styles.personalInfoSeparator}></Text>
-                    )}
-                  </View>
-                ))
+                <View style={{ flexDirection: "row", alignItems: "center", flexWrap: "wrap" }}>
+                  {personalInfoItems.map((item, index) => (
+                    <View key={item.id} style={{ flexDirection: "row", alignItems: "center" }}>
+                      {renderPersonalInfoItem(item, showLabels, true, 1)}
+                      {index < personalInfoItems.length - 1 && (
+                        <Text style={styles.personalInfoSeparator}> • </Text>
+                      )}
+                    </View>
+                  ))}
+                </View>
               ) : (
-                // 多行显示模式
-                personalInfoItems.map((item) => renderPersonalInfoItem(item, showLabels, false))
+                // 多行显示模式 - 使用动态itemsPerRow
+                <View style={getPersonalInfoGridStyle(itemsPerRow)}>
+                  {personalInfoItems.map((item) => renderPersonalInfoItem(item, showLabels, false, itemsPerRow))}
+                </View>
               )}
             </View>
           </View>

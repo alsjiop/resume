@@ -92,7 +92,7 @@ export default function ResumeBuilder() {
   useEffect(() => {
     const loadDemoData = async () => {
       try {
-        const response = await fetch("/demo.magic")
+        const response = await fetch("/template.re")
         if (!response.ok) {
           throw new Error("Failed to load demo data")
         }
@@ -142,7 +142,7 @@ export default function ResumeBuilder() {
   const handleSave = () => {
     try {
       const fileContent = exportToMagicyanFile(editorState.resumeData)
-      const filename = `${editorState.resumeData.title.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, "_")}.magic`
+      const filename = `${editorState.resumeData.title.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, "_")}.re`
       downloadFile(fileContent, filename)
 
       toast({
@@ -163,10 +163,10 @@ export default function ResumeBuilder() {
     const file = event.target.files?.[0]
     if (!file) return
 
-    if (!file.name.endsWith(".magic")) {
+    if (!file.name.endsWith(".re")) {
       toast({
         title: "文件格式错误",
-        description: "请选择 .magic 格式的文件",
+        description: "请选择 .re 格式的文件",
         variant: "destructive",
       })
       event.target.value = ""
@@ -254,7 +254,7 @@ export default function ResumeBuilder() {
 
           <Separator orientation="vertical" className="h-6" />
 
-          <input type="file" accept=".magic" onChange={handleImport} className="hidden" id="import-file" />
+          <input type="file" accept=".re" onChange={handleImport} className="hidden" id="import-file" />
           <Button
             variant="outline"
             size="sm"

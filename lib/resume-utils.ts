@@ -53,7 +53,7 @@ export function createNewJobIntentionItem(type: 'workYears' | 'position' | 'city
 }
 
 /**
- * 导出简历数据为.magic文件
+ * 导出简历数据为.re文件
  */
 export function exportToMagicyanFile(resumeData: ResumeData): string {
   const magicyanFile: MagicyanFile = {
@@ -72,7 +72,7 @@ export function exportToMagicyanFile(resumeData: ResumeData): string {
 }
 
 /**
- * 从.magic文件内容导入简历数据
+ * 从.re文件内容导入简历数据
  */
 export function importFromMagicyanFile(fileContent: string): ResumeData {
   try {

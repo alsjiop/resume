@@ -154,7 +154,7 @@ export interface ResumeData {
 /**
  * 文件保存/导入的数据结构
  */
-export interface MagicyanFile {
+export interface ResumeFile {
   /** 文件版本 */
   version: string
   /** 简历数据 */

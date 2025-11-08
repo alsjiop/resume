@@ -11,8 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
 import { Icon } from "@iconify/react"
 import type { ResumeData, EditorState } from "@/types/resume"
-import { exportToMagicyanFile, downloadFile, importFromMagicyanFile } from "@/lib/resume-utils"
-import { migrateResumeData, needsMigration } from "@/lib/migrate-resume-data"
+import { exportToMagicyanFile, downloadFile, importFromMagicyanFile, createDefaultResumeData } from "@/lib/resume-utils"
 import ResumePreview from "./resume-preview"
 import PersonalInfoEditor from "./personal-info-editor"
 import JobIntentionEditor from "./job-intention-editor"
@@ -66,21 +65,7 @@ ViewModeSelector.displayName = "ViewModeSelector"
  */
 export default function ResumeBuilder() {
   const [editorState, setEditorState] = useState<EditorState>({
-    resumeData: {
-      title: "加载中...",
-      personalInfoSection: {
-        personalInfo: [],
-        showPersonalInfoLabels: true,
-        layout: {
-          mode: 'grid',
-          itemsPerRow: 2,
-        },
-      },
-      avatar: "",
-      modules: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
+    resumeData: createDefaultResumeData(),
     isEditing: true,
     showPreview: true,
   })
@@ -94,27 +79,18 @@ export default function ResumeBuilder() {
       try {
         const response = await fetch("/template.re")
         if (!response.ok) {
-          throw new Error("Failed to load demo data")
+          console.warn("模板文件不存在，使用默认数据")
+          return
         }
         const content = await response.text()
-        let demoData = importFromMagicyanFile(content)
-
-        // 检查并迁移旧数据
-        if (needsMigration(demoData)) {
-          demoData = migrateResumeData(demoData)
-        }
+        const demoData = importFromMagicyanFile(content)
 
         setEditorState((prev) => ({
           ...prev,
           resumeData: demoData,
         }))
       } catch (error) {
-        console.error("加载示例数据失败:", error)
-        toast({
-          title: "加载失败",
-          description: "无法加载示例简历数据，请刷新页面重试",
-          variant: "destructive",
-        })
+        console.warn("加载模板文件失败，使用默认数据:", error)
       }
     }
 
@@ -184,17 +160,7 @@ export default function ResumeBuilder() {
     reader.onload = (e) => {
       try {
         const content = e.target?.result as string
-        let importedData = importFromMagicyanFile(content)
-
-        // 检查并迁移旧数据
-        if (needsMigration(importedData)) {
-          importedData = migrateResumeData(importedData)
-
-          toast({
-            title: "数据已自动升级",
-            description: "检测到旧版本数据，已自动转换为新格式",
-          })
-        }
+        const importedData = importFromMagicyanFile(content)
 
         setEditorState((prev) => ({
           ...prev,

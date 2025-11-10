@@ -30,7 +30,6 @@ export async function POST(req: Request) {
       });
     }
 
-    const encoded = encodeURIComponent(Buffer.from(JSON.stringify(resumeData), "utf-8").toString("base64"));
     const origin = getOrigin(req);
     if (!origin) {
       return new Response(JSON.stringify({ error: "Cannot resolve origin" }), {
@@ -38,7 +37,7 @@ export async function POST(req: Request) {
         headers: { "content-type": "application/json" },
       });
     }
-    const url = `${origin}/print?data=${encoded}`;
+    const url = `${origin}/print`;
 
     const envPath = process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROME_PATH || "";
     const executablePath = envPath || (await chromium.executablePath());
@@ -65,15 +64,26 @@ export async function POST(req: Request) {
       headless,
     });
     const page = await browser.newPage();
+    // 在任何脚本运行之前，将简历数据写入 sessionStorage，避免超长 URL 及 431 错误
+    await page.evaluateOnNewDocument((data) => {
+      try {
+        window.sessionStorage.setItem("resumeData", JSON.stringify(data));
+      } catch {}
+    }, resumeData);
     await page.emulateMediaType("print");
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
-    // 等待关键容器渲染，并等待网络空闲片刻
-    await page.waitForSelector(".resume-content", { timeout: 30000 });
+    // 等待关键容器渲染：优先等待 .resume-content；若未出现则退而求其次等待 .pdf-preview-mode
+    try {
+      await page.waitForSelector(".resume-content, .pdf-preview-mode", { timeout: 20000 });
+    } catch {
+      // 继续尝试：给客户端再一点时间完成渲染，避免直接失败
+      await new Promise((r) => setTimeout(r, 500));
+    }
     try {
       // @ts-ignore puppeteer v23+
-      await page.waitForNetworkIdle({ idleTime: 500, timeout: 30000 });
+      await page.waitForNetworkIdle({ idleTime: 300, timeout: 10000 });
     } catch {
-      await new Promise((r) => setTimeout(r, 500));
+      await new Promise((r) => setTimeout(r, 300));
     }
     // 等富文本内容（Tiptap）完成渲染：等待 ProseMirror 或段落/列表出现
     try {

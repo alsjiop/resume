@@ -19,8 +19,8 @@ import type { ResumeData } from "@/types/resume";
 
 // Personal info visuals: keep icon, text height, and spacing consistent
 const PI_FONT_SIZE = 10;      // pt
-const PI_LINE_HEIGHT = 10;    // pt – exactly equal to font size
-const PI_ICON_SIZE = 10;      // pt – equal to line-height
+const PI_LINE_HEIGHT = 12;    // pt – slightly larger than font size for stability
+const PI_ICON_SIZE = 10;      // pt – icon size
 const PI_ICON_GAP = 0;        // pt – minimal space between icon and text
 
 // 注册字体
@@ -241,28 +241,46 @@ const isAsciiOnly = (str?: string) => !!str && /^[\x00-\x7F]+$/.test(str);
 // 渲染个人信息项
 const renderPersonalInfoItem = (item: any, showLabels: boolean, isInline: boolean) => {
   return (
-    <View key={item.id} style={{ flexDirection: "row", alignItems: "center" }}>
-      {/* Icon box with fixed height to center icon vertically against text */}
-      <View style={{
-        width: PI_ICON_SIZE,
-        height: PI_LINE_HEIGHT,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: PI_ICON_GAP,
-      }}>
-        {renderIcon({ icon: item.icon, size: PI_ICON_SIZE })}
+    <View key={item.id} style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
+      {/* 不换行簇：图标 + 标签 保持在同一行 */}
+      <View wrap={false} style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 0 }}>
+        <View
+          style={{
+            width: PI_ICON_SIZE,
+            height: PI_LINE_HEIGHT,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginRight: PI_ICON_GAP,
+          }}
+        >
+          {renderIcon({ icon: item.icon, size: PI_ICON_SIZE })}
+        </View>
+        {showLabels ? <Text style={{ ...styles.label, marginRight: 4 }}>{item.label}:</Text> : null}
       </View>
-      {showLabels && <Text style={styles.label}>{item.label}:</Text>}
-      {item.value.type === "link" && item.value.content ? (
+
+      {/* 值：占剩余宽度，可换行 */}
+      {item.value.type === 'link' && item.value.content ? (
         <Link
           src={item.value.content}
-          style={{ ...styles.link, fontFamily: isAsciiOnly(item.value.title || item.value.content) ? 'Helvetica' : 'NotoSansSC' }}
+          style={{
+            ...styles.link,
+            fontFamily: isAsciiOnly(item.value.title || item.value.content) ? 'Helvetica' : 'NotoSansSC',
+            flexGrow: 1,
+            flexShrink: 1,
+          }}
         >
-          {item.value.title || "点击访问"}
+          {item.value.title || '点击访问'}
         </Link>
       ) : (
-        <Text style={{ ...styles.value, fontFamily: isAsciiOnly(item.value.content) ? 'Helvetica' : 'NotoSansSC' }}>
-          {item.value.content || "未填写"}
+        <Text
+          style={{
+            ...styles.value,
+            fontFamily: isAsciiOnly(item.value.content) ? 'Helvetica' : 'NotoSansSC',
+            flexGrow: 1,
+            flexShrink: 1,
+          }}
+        >
+          {item.value.content || '未填写'}
         </Text>
       )}
     </View>
@@ -451,7 +469,7 @@ const ResumePDF = ({ resumeData }: { resumeData: ResumeData }) => {
                 ))}
               </View>
             ) : (
-              // 多行显示模式 - 先两端对齐，然后模拟列对齐
+              // 多行显示模式：使用固定等宽列，保证跨行列对齐，避免绝对定位导致的断裂
               (() => {
                 // 将元素按行分组
                 const rows: typeof personalInfoItems[] = [];
@@ -459,88 +477,34 @@ const ResumePDF = ({ resumeData }: { resumeData: ResumeData }) => {
                   rows.push(personalInfoItems.slice(i, i + itemsPerRow));
                 }
 
-                // 计算每列的基准位置（基于满行的两端对齐）
-                const getColumnPositions = () => {
-                  const positions: number[] = [];
-                  const totalWidth = 100; // 百分比
-
-                  if (itemsPerRow === 1) {
-                    positions[0] = 0;
-                  } else {
-                    // 第一列固定在左边
-                    positions[0] = 0;
-                    // 最后一列固定在右边
-                    positions[itemsPerRow - 1] = totalWidth;
-                    // 中间列均匀分布
-                    for (let i = 1; i < itemsPerRow - 1; i++) {
-                      positions[i] = (totalWidth / (itemsPerRow - 1)) * i;
-                    }
-                  }
-
-                  return positions;
-                };
-
-                const columnPositions = getColumnPositions();
+                const colWidth = `${100 / itemsPerRow}%` as const;
 
                 return (
-                  <View style={{ gap: 8 }}>
-                    {rows.map((rowItems, rowIndex) => {
-                      const isFullRow = rowItems.length === itemsPerRow;
-
-                      if (isFullRow) {
-                        // 满行：使用 space-between 两端对齐
-                        return (
-                          <View
-                            key={rowIndex}
-                            style={{
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                              width: '100%'
-                            }}
-                          >
-                            {rowItems.map((item) => (
-                              <View
-                                key={item.id}
-                                style={{
-                                  flexShrink: 0,
-                                  flexDirection: 'row',
-                                  alignItems: 'center'
-                                }}
-                              >
-                                {renderPersonalInfoItem(item, showLabels, false)}
-                              </View>
-                            ))}
-                          </View>
-                        );
-                      } else {
-                        // 非满行：使用绝对定位模拟列对齐
-                        return (
-                          <View
-                            key={rowIndex}
-                            style={{
-                              position: 'relative',
-                              height: 20, // 固定高度
-                              width: '100%'
-                            }}
-                          >
-                            {rowItems.map((item, colIndex) => (
-                              <View
-                                key={item.id}
-                                style={{
-                                  position: 'absolute',
-                                  left: `${columnPositions[colIndex]}%`,
-                                  flexDirection: 'row',
-                                  alignItems: 'center'
-                                }}
-                              >
-                                {renderPersonalInfoItem(item, showLabels, false)}
-                              </View>
-                            ))}
-                          </View>
-                        );
-                      }
-                    })}
+                  <View>
+                    {rows.map((rowItems, rowIndex) => (
+                      <View
+                        key={rowIndex}
+                        style={{ flexDirection: 'row', width: '100%', alignItems: 'center' }}
+                      >
+                        {Array.from({ length: itemsPerRow }).map((_, colIndex) => {
+                          const item = rowItems[colIndex];
+                          return (
+                            <View
+                              key={colIndex}
+                              style={{
+                                width: colWidth,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                flexWrap: 'nowrap',
+                                minHeight: PI_LINE_HEIGHT,
+                              }}
+                            >
+                              {item ? renderPersonalInfoItem(item, showLabels, false) : null}
+                            </View>
+                          );
+                        })}
+                      </View>
+                    ))}
                   </View>
                 );
               })()

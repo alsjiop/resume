@@ -1,11 +1,22 @@
 "use client"
 
 import { useEffect, useState, Suspense } from "react"
+import dynamic from "next/dynamic"
 import type { ResumeData } from "@/types/resume"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@iconify/react"
 import { generatePdfFilename } from "@/lib/resume-utils"
-import ResumePreview from "@/components/resume-preview"
+
+// 动态导入 PDF 组件，禁用 SSR
+const DynamicPDFViewer = dynamic(
+  () => import("@/components/pdf-viewer").then((mod) => mod.PDFViewer),
+  { ssr: false }
+)
+
+const DynamicPDFDownloadLink = dynamic(
+  () => import("@/components/pdf-viewer").then((mod) => mod.PDFDownloadLink),
+  { ssr: false }
+)
 
 function PDFPreviewContent() {
   const [resumeData, setResumeData] = useState<ResumeData | null>(null)
@@ -51,7 +62,7 @@ function PDFPreviewContent() {
   const fileName = generatePdfFilename(resumeData.title)
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden pdf-preview-mode">
+    <div className="flex flex-col h-screen overflow-hidden">
       <div className="flex justify-between items-center p-4 border-b">
         <h1 className="text-xl font-bold">PDF预览</h1>
         <div className="flex gap-2">
@@ -59,15 +70,17 @@ function PDFPreviewContent() {
             <Icon icon="mdi:close" className="w-4 h-4" />
             关闭
           </Button>
-          <Button size="sm" className="gap-2" onClick={() => window.print()}>
-            <Icon icon="mdi:download" className="w-4 h-4" />
-            下载PDF
-          </Button>
+          <DynamicPDFDownloadLink resumeData={resumeData} fileName={fileName}>
+            <Button size="sm" className="gap-2">
+              <Icon icon="mdi:download" className="w-4 h-4" />
+              下载PDF
+            </Button>
+          </DynamicPDFDownloadLink>
         </div>
       </div>
-      <div className="flex-1 overflow-auto flex items-start justify-center bg-muted/30">
-        <div className="py-6">
-          <ResumePreview resumeData={resumeData} />
+      <div className="flex-1 overflow-hidden flex">
+        <div className="w-full h-full">
+          <DynamicPDFViewer resumeData={resumeData} />
         </div>
       </div>
     </div>

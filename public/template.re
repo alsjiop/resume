@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "data": {
-    "title": "严钦蓝",
+    "title": "简历模板",
     "centerTitle": true,
     "personalInfoSection": {
       "personalInfo": [
@@ -9,7 +9,7 @@
           "id": "info-1762496572164-svyiwyjjo",
           "label": "性别",
           "value": {
-            "content": "男｜32岁",
+            "content": "男｜27岁",
             "type": "text"
           },
           "icon": "<path fill=\"currentColor\" d=\"M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4\"/>",
@@ -19,47 +19,47 @@
           "id": "phone",
           "label": "电话",
           "value": {
-            "content": "181xxxx7244",
+            "content": "131xxxx8888",
             "type": "text"
           },
-          "icon": "<path fill=\"currentColor\" d=\"M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.02-.25c1.12.37 2.32.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57c.11.35.03.74-.25 1.02z\"/>",
+          "icon": "<g fill=\"none\" fill-rule=\"evenodd\"><path d=\"m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z\"/><path fill=\"currentColor\" d=\"M16.552 22.133c-1.44-.053-5.521-.617-9.795-4.89c-4.273-4.274-4.836-8.354-4.89-9.795c-.08-2.196 1.602-4.329 3.545-5.162a1.47 1.47 0 0 1 1.445.159c1.6 1.166 2.704 2.93 3.652 4.317a1.504 1.504 0 0 1-.256 1.986l-1.951 1.449a.48.48 0 0 0-.142.616c.442.803 1.228 1.999 2.128 2.899s2.153 1.738 3.012 2.23a.483.483 0 0 0 .644-.162l1.27-1.933a1.503 1.503 0 0 1 2.056-.332c1.407.974 3.049 2.059 4.251 3.598a1.47 1.47 0 0 1 .189 1.485c-.837 1.953-2.955 3.616-5.158 3.535\"/></g>",
           "order": 1
         },
         {
           "id": "email",
           "label": "邮箱",
           "value": {
-            "content": "magicyan418@linux.do",
+            "content": "admin@google.com",
             "type": "text"
           },
-          "icon": "<path fill=\"currentColor\" d=\"m20 8l-8 5l-8-5V6l8 5l8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2\"/>",
+          "icon": "<path fill=\"currentColor\" d=\"M17.25 2.75H6.75A4.75 4.75 0 0 0 2 7.5v9a4.75 4.75 0 0 0 4.75 4.75h10.5A4.76 4.76 0 0 0 22 16.5v-9a4.76 4.76 0 0 0-4.75-4.75m-3.65 8.32a3.26 3.26 0 0 1-3.23 0L3.52 7.14a3.25 3.25 0 0 1 3.23-2.89h10.5a3.26 3.26 0 0 1 3.23 2.89z\"/>",
           "order": 2
         },
         {
           "id": "info-1762496380988-r2f0839hl",
           "label": "微信",
           "value": {
-            "content": "12345678901",
+            "content": "0123456789",
             "type": "text"
           },
-          "icon": "<path fill=\"currentColor\" d=\"M15.85 8.14c.39 0 .77.03 1.14.08C16.31 5.25 13.19 3 9.44 3c-4.25 0-7.7 2.88-7.7 6.43c0 2.05 1.15 3.86 2.94 5.04L3.67 16.5l2.76-1.19c.59.21 1.21.38 1.87.47c-.09-.39-.14-.79-.14-1.21c-.01-3.54 3.44-6.43 7.69-6.43M12 5.89a.96.96 0 1 1 0 1.92a.96.96 0 0 1 0-1.92M6.87 7.82a.96.96 0 1 1 0-1.92a.96.96 0 0 1 0 1.92\"/><path fill=\"currentColor\" d=\"M22.26 14.57c0-2.84-2.87-5.14-6.41-5.14s-6.41 2.3-6.41 5.14s2.87 5.14 6.41 5.14c.58 0 1.14-.08 1.67-.2L20.98 21l-1.2-2.4c1.5-.94 2.48-2.38 2.48-4.03m-8.34-.32a.96.96 0 1 1 .96-.96c.01.53-.43.96-.96.96m3.85 0a.96.96 0 1 1 0-1.92a.96.96 0 0 1 0 1.92\"/>",
+          "icon": "<g fill=\"none\" fill-rule=\"evenodd\"><path d=\"m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z\"/><path fill=\"currentColor\" d=\"M16 10c3.154 0 6 2.186 6 5.213c0 1.696-.92 3.153-2.26 4.08c-.044.265-.008.532-.008.799a.903.903 0 0 1-.897.908c-.68 0-1.31-.224-1.843-.645a7 7 0 0 1-.992.071c-3.154 0-6-2.186-6-5.213S12.846 10 16 10M9.5 3c3.777 0 7.149 2.535 7.474 6.062A8 8 0 0 0 16 9c-3.533 0-7 2.473-7 6.209q0 .531.09 1.027a9 9 0 0 1-.926-.094c-.67.549-1.443.858-2.31.858c-.518 0-.937-.434-.937-.97l.004-.197l.017-.397a2.1 2.1 0 0 0-.055-.59C3.17 13.667 2 11.794 2 9.624C2 5.807 5.525 3 9.5 3M14 13a1 1 0 1 0 0 2a1 1 0 0 0 0-2m4 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2M7 6a1 1 0 1 0 0 2a1 1 0 0 0 0-2m5 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2\"/></g>",
           "order": 3
         },
         {
           "id": "info-1762496466910-zlrgtmni4",
           "label": "Github",
           "value": {
-            "content": "https://github.com/hello",
+            "content": "https://github.com",
             "type": "link",
-            "title": "hello"
+            "title": "username"
           },
-          "icon": "<path fill=\"currentColor\" d=\"M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2\"/>",
+          "icon": "<path fill=\"currentColor\" d=\"M12.001 2c-5.525 0-10 4.475-10 10a9.99 9.99 0 0 0 6.837 9.488c.5.087.688-.213.688-.476c0-.237-.013-1.024-.013-1.862c-2.512.463-3.162-.612-3.362-1.175c-.113-.288-.6-1.175-1.025-1.413c-.35-.187-.85-.65-.013-.662c.788-.013 1.35.725 1.538 1.025c.9 1.512 2.337 1.087 2.912.825c.088-.65.35-1.087.638-1.337c-2.225-.25-4.55-1.113-4.55-4.938c0-1.088.387-1.987 1.025-2.687c-.1-.25-.45-1.275.1-2.65c0 0 .837-.263 2.75 1.024a9.3 9.3 0 0 1 2.5-.337c.85 0 1.7.112 2.5.337c1.913-1.3 2.75-1.024 2.75-1.024c.55 1.375.2 2.4.1 2.65c.637.7 1.025 1.587 1.025 2.687c0 3.838-2.337 4.688-4.562 4.938c.362.312.675.912.675 1.85c0 1.337-.013 2.412-.013 2.75c0 .262.188.574.688.474A10.02 10.02 0 0 0 22 12c0-5.525-4.475-10-10-10\"/>",
           "order": 4
         }
       ],
       "showPersonalInfoLabels": false,
       "layout": {
-        "mode": "grid",
+        "mode": "inline",
         "itemsPerRow": 5
       }
     },
@@ -68,14 +68,14 @@
         {
           "id": "jii-1",
           "label": "工作经验",
-          "value": "16年",
+          "value": "5年",
           "order": 0,
           "type": "workYears"
         },
         {
           "id": "jii-2",
           "label": "求职意向",
-          "value": "Java",
+          "value": "Java高级开发工程师",
           "order": 1,
           "type": "position"
         },
@@ -91,627 +91,47 @@
     },
     "modules": [
       {
-        "id": "education-1",
-        "title": "教育背景",
-        "icon": "<path fill=\"currentColor\" d=\"M12 3L1 9l11 6l9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z\"/>",
-        "order": 1,
-        "rows": [
-          {
-            "id": "id-1762631629762-wc8sjzakp",
-            "columns": 3,
-            "elements": [
-              {
-                "id": "id-1762631629762-pkpjr7d74",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "四川商务职业学院"
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "left"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 0
-              },
-              {
-                "id": "id-1762631629762-ogsyo9aqx",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [],
-                      "attrs": {
-                        "textAlign": "center"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 1
-              },
-              {
-                "id": "id-1762631629762-mutwsl1be",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "2020.09.01 ~ 2023.06.30",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#0066cc"
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "right"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 2
-              }
-            ],
-            "order": 0
-          }
-        ]
+        "id": "id-1762735184080-z9i9lx65b",
+        "title": "自我介绍",
+        "icon": "<path fill=\"currentColor\" d=\"M4 3c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2h8v5l3-3l3 3v-5h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm8 2l3 2l3-2v3.5l3 1.5l-3 1.5V15l-3-2l-3 2v-3.5L9 10l3-1.5zM4 5h5v2H4zm0 4h3v2H4zm0 4h5v2H4z\"/>",
+        "order": 0,
+        "rows": []
       },
       {
-        "id": "introduction-1",
-        "title": "自我介绍",
-        "icon": "<path fill=\"currentColor\" d=\"M6.25 7a5.75 5.75 0 1 1 11.5 0a5.75 5.75 0 0 1-11.5 0m5.548 7.261a1 1 0 0 1 .13-.011h.144q.066 0 .13.011l7.295 1.283l.038.008c1.344.31 2.788 1.163 3.069 2.82l.004.029l.114.877v.002c.264 2.009-1.329 3.47-3.21 3.47a1 1 0 0 1-.124-.01h-14.9c-1.881 0-3.475-1.462-3.21-3.472l.114-.869l.005-.03c.28-1.627 1.736-2.528 3.077-2.819l.029-.006z\"/>",
-        "order": 2,
-        "rows": [
-          {
-            "id": "id-1762631629762-vwt8gl5cz",
-            "columns": 1,
-            "elements": [
-              {
-                "id": "id-1762631629762-1vdyioev9",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "（"
-                        },
-                        {
-                          "type": "text",
-                          "text": "抱拳沉声",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#f9c513"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "）"
-                        },
-                        {
-                          "type": "text",
-                          "text": "我乃大专巅峰",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#d73a49"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "，二转前端蛊师，修前端之道已二年半。"
-                        },
-                        {
-                          "type": "text",
-                          "text": "以视觉为蛊引",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#ea4aaa"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "，代码为杀招，"
-                        },
-                        {
-                          "type": "text",
-                          "text": "炼组",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#28a745"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "件如炼丹，"
-                        },
-                        {
-                          "type": "text",
-                          "text": "布状态似结",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#e36209"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "阵",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "fontSize": "14pt"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "。"
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "left"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 0
-              }
-            ],
-            "order": 0
-          },
-          {
-            "id": "id-1762631629762-2v4nrxlmh",
-            "columns": 1,
-            "elements": [
-              {
-                "id": "id-1762631629762-xmxhu5ibj",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "（袖中飞出三道流光）吾掌三大仙蛊：一曰样式蛊，可化万般界面皮相；二曰状态蛊，能驭千重数据变化；三曰动效蛊，可令像素生灵起舞。"
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "left"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 0
-              }
-            ],
-            "order": 1
-          },
-          {
-            "id": "id-1762631629762-wo8hzx2k3",
-            "columns": 1,
-            "elements": [
-              {
-                "id": "id-1762631629762-3z9hs4him",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "（展开蛊阵图卷）这些时日，斩过混沌需求妖兽，解过浏览器蛊毒，更在用户心海种下交互动效之蛊。凡所见之处，必以像素级精度炼之，以视觉驱动叩问前端大道。"
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "left"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 0
-              }
-            ],
-            "order": 2
-          },
-          {
-            "id": "id-1762631629762-b8amsahkf",
-            "columns": 1,
-            "elements": [
-              {
-                "id": "id-1762631629762-uraxa95ej",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "（负手而立）代码如蛊，一念生万象。诸君且看——我这二年半修为，可能入得各位道友法眼？"
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "left"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 0
-              }
-            ],
-            "order": 3
-          }
-        ]
+        "id": "id-1762735142874-cs8xifn0m",
+        "title": "专业技能",
+        "icon": "<path fill=\"currentColor\" d=\"m21.71 20.29l-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.8 3.8 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54l.53-.53l1.42-1.42l.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.8 3.8 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46l-2.83-2.83M20 2l-4 2v2l-2.17 2.17l2 2L18 8h2l2-4Z\"/>",
+        "order": 1,
+        "rows": []
       },
       {
         "id": "work-1",
         "title": "工作经历",
         "icon": "<path fill=\"currentColor\" d=\"M10 2h4a2 2 0 0 1 2 2v2h4a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.11.89-2 2-2h4V4c0-1.11.89-2 2-2m4 4V4h-4v2z\"/>",
-        "order": 3,
-        "rows": [
-          {
-            "id": "id-1762631629762-axkv3ej1r",
-            "columns": 3,
-            "elements": [
-              {
-                "id": "id-1762631629762-wumzbrnnr",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "甲子洞天科技 | 前端蛊师"
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "left"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 0
-              },
-              {
-                "id": "id-1762631629762-m3df6rgzi",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [],
-                      "attrs": {
-                        "textAlign": "center"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 1
-              },
-              {
-                "id": "id-1762631629762-fedk8ysp4",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "（壬寅年冬 - 今）",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#0066cc"
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "right"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 2
-              }
-            ],
-            "order": 0
-          },
-          {
-            "id": "id-1762631629762-gh3p2nj06",
-            "columns": 1,
-            "elements": [
-              {
-                "id": "id-1762631629762-k1z2jn5nw",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "镇守宗门核心产品「天机商城蛊阵」，执掌React+TypeScript丹炉。独炼「设计系统蛊池」，饲喂三百余组件供全宗弟子取用，令开发效率暴涨如潮。每逢大版本更新，吾以「可视化拖拽蛊器」降伏产品心魔，需求迭代速提五成"
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "left"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 0
-              }
-            ],
-            "order": 1
-          }
-        ]
+        "order": 2,
+        "rows": []
       },
       {
         "id": "project-1",
         "title": "项目经验",
         "icon": "<path fill=\"currentColor\" d=\"M22 4h-8l-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2M2 6H0v14a2 2 0 0 0 2 2h18v-2H2z\"/>",
-        "order": 6,
-        "rows": [
-          {
-            "id": "id-1762631629762-2jzetrg5d",
-            "columns": 3,
-            "elements": [
-              {
-                "id": "id-1762631629762-prfwkw3es",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "天机商城蛊阵"
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "left"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 0
-              },
-              {
-                "id": "id-1762631629762-re5sf4gx4",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [],
-                      "attrs": {
-                        "textAlign": "center"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 1
-              },
-              {
-                "id": "id-1762631629762-nepxnbier",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "主炼蛊师",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#0066cc"
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "right"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 2
-              }
-            ],
-            "order": 0
-          },
-          {
-            "id": "id-1762631629762-ooslc0jvu",
-            "columns": 1,
-            "elements": [
-              {
-                "id": "id-1762631629762-pcbqxin06",
-                "content": {
-                  "type": "doc",
-                  "content": [
-                    {
-                      "type": "paragraph",
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "炼就「微前端子蛊巢」，",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#d73a49"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "贯通五大道统",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#11C439"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "（React/Vue/原生），令三千页面如臂使指。独创「",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#d73a49"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "性能监测蛊虫",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#E5CE72"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "」，实时吐纳首屏加载、",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#d73a49"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "交互反馈等十二项指标",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#0366d6"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "，核心转化率提升廿五。",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#d73a49"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "今此蛊阵日活百万",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#6f42c1"
-                              }
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "text": "，稳如磐石。",
-                          "marks": [
-                            {
-                              "type": "textStyle",
-                              "attrs": {
-                                "color": "#d73a49"
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "attrs": {
-                        "textAlign": "left"
-                      }
-                    }
-                  ]
-                },
-                "columnIndex": 0
-              }
-            ],
-            "order": 1
-          }
-        ]
+        "order": 3,
+        "rows": []
+      },
+      {
+        "id": "education-1",
+        "title": "教育背景",
+        "icon": "<path fill=\"currentColor\" d=\"M12 3L1 9l11 6l9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17z\"/>",
+        "order": 4,
+        "rows": []
       }
     ],
     "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2025-11-08T21:44:49.092Z",
+    "updatedAt": "2025-11-10T00:40:21.899Z",
     "avatar": ""
   },
   "metadata": {
-    "exportedAt": "2025-11-08T21:44:49.092Z",
+    "exportedAt": "2025-11-10T00:40:21.899Z",
     "appVersion": "1.0.0"
   }
 }

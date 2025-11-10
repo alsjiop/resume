@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { Icon } from "@iconify/react"
 import type { ResumeData } from "@/types/resume"
 import RichTextRenderer from "./rich-text-renderer"
@@ -12,6 +13,7 @@ interface ResumePreviewProps {
  * 简历预览组件
  */
 export default function ResumePreview({ resumeData }: ResumePreviewProps) {
+  const isAsciiOnly = (str: string | undefined) => !!str && /^[\x00-\x7F]+$/.test(str);
   // 格式化求职意向显示
   const formatJobIntention = () => {
     if (!resumeData.jobIntentionSection?.enabled || !resumeData.jobIntentionSection?.items?.length) {
@@ -59,85 +61,90 @@ export default function ResumePreview({ resumeData }: ResumePreviewProps) {
               {resumeData.personalInfoSection?.personalInfo.map((item) => (
                 <div
                   key={item.id}
-                  className="personal-info-item flex items-center gap-1 shrink-0"
+                  className="personal-info-item flex items-center gap-0.5 shrink-0 whitespace-nowrap"
                 >
                   {item.icon && (
                     <svg
-                      className="resume-icon w-4 h-4 -translate-y-[1px] shrink-0"
+                      className="resume-icon w-[1em] h-[1em] shrink-0"
                       fill="black"
-                      width={16}
-                      height={16}
                       viewBox="0 0 24 24"
                       dangerouslySetInnerHTML={{ __html: item.icon }}
                     />
                   )}
                   {resumeData.personalInfoSection?.showPersonalInfoLabels !== false && (
-                    <span className="text-sm text-muted-foreground">{item.label}:</span>
+                    <span className="text-sm leading-none text-muted-foreground shrink-0">{item.label}:</span>
                   )}
                   {item.value.type === "link" && item.value.content ? (
                     <a
                       href={item.value.content}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+                      className={`text-sm leading-none text-blue-600 hover:text-blue-800 hover:underline ${isAsciiOnly(item.value.title || item.value.content) ? 'font-latin' : ''}`}
                     >
                       {item.value.title || "点击访问"}
                     </a>
                   ) : (
-                    <span className="text-sm text-foreground">{item.value.content || "未填写"}</span>
+                    <span className={`text-sm leading-none text-foreground ${isAsciiOnly(item.value.content) ? 'font-latin' : ''}`}>{item.value.content || "未填写"}</span>
                   )}
                 </div>
               ))}
             </div>
           ) : (
-            /* 多行显示模式（grid）- 动态列数布局 */
-            <div
-              className="personal-info"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: `repeat(${resumeData.personalInfoSection?.layout?.itemsPerRow || 2}, minmax(0, 1fr))`,
-                gap: '0.5rem 1rem',
-                justifyItems: 'start',
-                alignItems: 'center'
-              }}
-            >
-              {resumeData.personalInfoSection?.personalInfo.map((item) => (
+            /* 多行显示：使用 CSS Grid 统一列轨道 + 两端对齐（不换行，必要时省略） */
+            (() => {
+              const itemsPerRow = resumeData.personalInfoSection?.layout?.itemsPerRow || 2;
+              const rowGapRem = 0.5; // 行间距
+              const personalInfo = resumeData.personalInfoSection?.personalInfo || [];
+              // 为防止某一列极长导致整体溢出，按列数设置上限宽度（ch 单位）
+              
+
+              return (
                 <div
-                  key={item.id}
-                  className="personal-info-item flex items-center gap-1"
+                  className="personal-info personal-info-grid"
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: `repeat(${itemsPerRow}, max-content)`,
+                    justifyContent: 'space-between',
+                    justifyItems: 'start',
+                    alignItems: 'center',
+                    columnGap: 0,
+                    rowGap: `${rowGapRem}rem`,
+                    width: '100%'
+                  }}
                 >
-                  {item.icon && (
-                    <svg
-                      className="resume-icon w-4 h-4 flex-shrink-0 transform -translate-y-[-1px]"
-                      fill="black"
-                      width={16}
-                      height={16}
-                      viewBox="0 0 24 24"
-                      dangerouslySetInnerHTML={{ __html: item.icon }}
-                    />
-                  )}
-                  {resumeData.personalInfoSection?.showPersonalInfoLabels !== false && (
-                    <span className="text-sm text-muted-foreground">
-                      {item.label}:
-                    </span>
-                  )}
-                  {item.value.type === "link" && item.value.content ? (
-                    <a
-                      href={item.value.content}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+                  {personalInfo.map((item) => (
+                    <div
+                      key={item.id}
+                      className="personal-info-item inline-flex items-center gap-0.5 whitespace-nowrap"
                     >
-                      {item.value.title || "点击访问"}
-                    </a>
-                  ) : (
-                    <span className="text-sm text-foreground">
-                      {item.value.content || "未填写"}
-                    </span>
-                  )}
+                      {item.icon && (
+                        <svg
+                          className="resume-icon w-[1em] h-[1em] flex-shrink-0"
+                          fill="black"
+                          viewBox="0 0 24 24"
+                          dangerouslySetInnerHTML={{ __html: item.icon }}
+                        />
+                      )}
+                      {resumeData.personalInfoSection?.showPersonalInfoLabels !== false && (
+                        <span className="text-sm leading-none text-muted-foreground flex-shrink-0">{item.label}:</span>
+                      )}
+                      {item.value.type === "link" && item.value.content ? (
+                        <a
+                          href={item.value.content}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`text-sm leading-none text-blue-600 hover:text-blue-800 hover:underline ${isAsciiOnly(item.value.title || item.value.content) ? 'font-latin' : ''}`}
+                        >
+                          {item.value.title || "点击访问"}
+                        </a>
+                      ) : (
+                        <span className={`text-sm leading-none text-foreground ${isAsciiOnly(item.value.content) ? 'font-latin' : ''}`}>{item.value.content || "未填写"}</span>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              );
+            })()
           )}
         </div>
 

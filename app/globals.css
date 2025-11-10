@@ -214,6 +214,11 @@
   .icon-button-personal-info {
     @apply inline-flex items-center justify-center w-8 h-[72px] rounded-md hover:bg-accent/10 transition-colors;
   }
+
+  /* 拉丁/数字优先的无衬线字体，cap-height 更高，和 SVG 图标更匹配 */
+  .font-latin {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
 }
 
 /* 导入打印样式 */

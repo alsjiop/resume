@@ -144,6 +144,8 @@ export default function PersonalInfoEditor({
     });
   };
 
+
+
   useEffect(() => {
     if (!avatar) return;
     setAvatarUrl(avatar);
@@ -276,25 +278,27 @@ export default function PersonalInfoEditor({
           
           {/* 每行列数选择器 - 只在grid模式下显示 */}
           {layout.mode === 'grid' && (
-            <Select
-              value={String(layout.itemsPerRow || 2)}
-              onValueChange={(value) => handleItemsPerRowChange(Number(value) as 1 | 2 | 3 | 4 | 5 | 6)}
-            >
-              <SelectTrigger className="h-9 w-24">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {[1, 2, 3, 4, 5, 6].map((num) => {
-                  const maxCols = Math.max(Math.min(6, personalInfo.length), 1);
-                  if (num > maxCols) return null;
-                  return (
-                    <SelectItem key={num} value={String(num)}>
-                      {num}列
-                    </SelectItem>
-                  );
-                })}
-              </SelectContent>
-            </Select>
+            <>
+              <Select
+                value={String(layout.itemsPerRow || 2)}
+                onValueChange={(value) => handleItemsPerRowChange(Number(value) as 1 | 2 | 3 | 4 | 5 | 6)}
+              >
+                <SelectTrigger className="h-9 w-24">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {[1, 2, 3, 4, 5, 6].map((num) => {
+                    const maxCols = Math.max(Math.min(6, personalInfo.length), 1);
+                    if (num > maxCols) return null;
+                    return (
+                      <SelectItem key={num} value={String(num)}>
+                        {num}列
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+            </>
           )}
           
           <Button

@@ -72,6 +72,20 @@
     color: #000 !important;
   }
 
+  /* 覆盖：当个人信息使用 Grid 布局时，保持列对齐与两端分布 */
+  .personal-info-grid {
+    display: grid !important;
+    justify-content: space-between !important;
+    column-gap: 0 !important;
+    width: 100% !important;
+  }
+  .personal-info-grid .personal-info-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin-right: 0 !important; /* 由 space-between 控制间距 */
+  }
+  /* 不强制截断，保持与预览一致 */
+
   /* 头像在打印时的处理 */
   .resume-avatar {
     width: 50pt !important;
@@ -81,10 +95,10 @@
     object-fit: cover !important;
   }
 
-  /* 图标在打印时的处理 */
+  /* 图标在打印时的处理：使图标高度与文本高度一致 */
   .resume-icon {
-    width: 10pt !important;
-    height: 10pt !important;
+    width: 1em !important;
+    height: 1em !important;
     margin-right: 3pt !important;
     vertical-align: middle !important;
     color: #333 !important;
@@ -223,10 +237,20 @@
     margin-right: 15pt;
     margin-bottom: 3pt;
   }
+  .personal-info-grid {
+    display: grid;
+    justify-content: space-between;
+    column-gap: 0;
+  }
+  .personal-info-grid .personal-info-item {
+    display: inline-flex;
+    margin-right: 0;
+  }
+  /* 不强制截断，保持与预览一致 */
 
   .resume-icon {
-    width: 10pt;
-    height: 10pt;
+    width: 1em;
+    height: 1em;
     margin-right: 3pt;
     color: #333;
   }

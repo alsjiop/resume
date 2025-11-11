@@ -20,7 +20,7 @@ import IconPicker from "./icon-picker"
 import FloatingActionBar from "./floating-action-bar"
 import RichTextInput from "./rich-text-input"
 import TagInput from "./tag-input"
-import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd"
+import { DragDropContext, Droppable, Draggable, DropResult, DraggableProvidedDragHandleProps } from "@hello-pangea/dnd"
 
 interface ModuleEditorProps {
   modules: ResumeModule[]
@@ -220,7 +220,7 @@ export default function ModuleEditor({ modules, onUpdate }: ModuleEditorProps) {
 interface ModuleItemProps {
   module: ResumeModule
   isExpanded: boolean
-  dragHandleProps: any
+  dragHandleProps: DraggableProvidedDragHandleProps | null
   onToggle: () => void
   onUpdate: (updates: Partial<ResumeModule>) => void
   onRemove: () => void

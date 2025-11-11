@@ -1,4 +1,11 @@
 import type { ResumeData, ResumeFile, ResumeModule, PersonalInfoItem, JobIntentionItem } from "@/types/resume"
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+// Tailwind className merge helper
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
 
 /**
  * 生成默认的简历数据

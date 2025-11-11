@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Icon } from "@iconify/react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
+import type { DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
 import type { JobIntentionItem, JobIntentionSection } from "@/types/resume";
 import { createNewJobIntentionItem } from "@/lib/resume-utils";
 
@@ -44,12 +45,12 @@ export default function JobIntentionEditor({
   jobIntentionSection,
   onUpdate,
 }: JobIntentionEditorProps) {
-  const [enabled, setEnabled] = useState(jobIntentionSection?.enabled ?? true);
+  const enabled = jobIntentionSection?.enabled ?? true;
   const items = jobIntentionSection?.items || [];
 
   // 同步外部 enabled 变化到本地状态，确保预览与编辑一致
   useEffect(() => {
-    setEnabled(jobIntentionSection?.enabled ?? true);
+    // enabled synchronized via props
   }, [jobIntentionSection?.enabled]);
 
   /**
@@ -84,7 +85,6 @@ export default function JobIntentionEditor({
    */
   const toggleEnabled = () => {
     const newEnabled = !enabled;
-    setEnabled(newEnabled);
     onUpdate({
       items,
       enabled: newEnabled
@@ -254,7 +254,7 @@ interface JobIntentionItemEditorProps {
   item: JobIntentionItem;
   onUpdate: (updates: Partial<JobIntentionItem>) => void;
   onRemove: () => void;
-  dragHandleProps?: any;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
   isDragging?: boolean;
   disabled?: boolean;
 }
@@ -470,4 +470,3 @@ function JobIntentionItemEditor({
     </div>
   );
 }
-

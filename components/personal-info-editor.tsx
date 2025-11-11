@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -30,6 +31,7 @@ import {
 } from "@/components/ui/select";
 import { Icon } from "@iconify/react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
+import type { DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
 import type { PersonalInfoItem, PersonalInfoSection, PersonalInfoLayout } from "@/types/resume";
 import { createNewPersonalInfoItem } from "@/lib/resume-utils";
 import IconPicker from "./icon-picker";
@@ -48,16 +50,9 @@ export default function PersonalInfoEditor({
   avatar,
   onUpdate,
 }: PersonalInfoEditorProps) {
-  const [avatarUrl, setAvatarUrl] = useState(avatar || "");
-  const [showLabels, setShowLabels] = useState(
-    personalInfoSection?.showPersonalInfoLabels !== false
-  );
-  const [layout, setLayout] = useState<PersonalInfoLayout>(() => {
-    if (personalInfoSection?.layout) {
-      return personalInfoSection.layout;
-    }
-    return { mode: 'grid', itemsPerRow: 2 };
-  });
+  const avatarUrl = avatar || "";
+  const showLabels = personalInfoSection?.showPersonalInfoLabels !== false;
+  const layout: PersonalInfoLayout = personalInfoSection?.layout ?? { mode: 'grid', itemsPerRow: 2 };
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // 提取personalInfo到局部变量以简化代码，如果personalInfoSection不存在则使用空数组
@@ -98,7 +93,6 @@ export default function PersonalInfoEditor({
   const toggleShowLabels = () => {
     if (!personalInfoSection) return;
     const newShowLabels = !showLabels;
-    setShowLabels(newShowLabels);
     onUpdate({
       ...personalInfoSection,
       showPersonalInfoLabels: newShowLabels
@@ -112,7 +106,6 @@ export default function PersonalInfoEditor({
     if (!personalInfoSection) return;
     const newMode = layout.mode === 'inline' ? 'grid' : 'inline';
     const newLayout: PersonalInfoLayout = { ...layout, mode: newMode as 'inline' | 'grid' };
-    setLayout(newLayout);
     onUpdate({
       ...personalInfoSection,
       layout: newLayout
@@ -129,7 +122,6 @@ export default function PersonalInfoEditor({
       mode: 'grid',
       itemsPerRow
     };
-    setLayout(newLayout);
     onUpdate({
       ...personalInfoSection,
       layout: newLayout
@@ -140,20 +132,20 @@ export default function PersonalInfoEditor({
 
   useEffect(() => {
     if (!avatar) return;
-    setAvatarUrl(avatar);
+    // avatarUrl is derived from props; no local setState
   }, [avatar]);
 
   useEffect(() => {
     // 同步 personalInfoSection 的变化，更新本地状态
     if (personalInfoSection) {
-      setShowLabels(personalInfoSection?.showPersonalInfoLabels !== false);
+      // showLabels derived from props
 
       // 更新layout状态
       if (personalInfoSection.layout) {
-        setLayout(personalInfoSection.layout);
+        // layout derived from props
       }
     }
-  }, [personalInfoSection?.showPersonalInfoLabels, personalInfoSection?.layout]);
+  }, [personalInfoSection]);
 
   /**
    * 处理文件上传
@@ -165,7 +157,6 @@ export default function PersonalInfoEditor({
       const reader = new FileReader();
       reader.onload = (e) => {
         const base64 = e.target?.result as string;
-        setAvatarUrl(base64);
         onUpdate({
           ...personalInfoSection,
           personalInfo: personalInfo
@@ -221,7 +212,6 @@ export default function PersonalInfoEditor({
         ...layout,
         itemsPerRow: maxCols as 1 | 2 | 3 | 4 | 5 | 6
       };
-      setLayout(newLayout);
     }
 
     onUpdate({
@@ -236,7 +226,6 @@ export default function PersonalInfoEditor({
    */
   const handleAvatarChange = (url: string) => {
     if (!personalInfoSection) return;
-    setAvatarUrl(url);
     onUpdate(personalInfoSection, url);
   };
 
@@ -402,7 +391,7 @@ interface PersonalInfoItemEditorProps {
   item: PersonalInfoItem;
   onUpdate: (updates: Partial<PersonalInfoItem>) => void;
   onRemove: () => void;
-  dragHandleProps?: any;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
   isDragging?: boolean;
 }
 

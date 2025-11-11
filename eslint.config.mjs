@@ -10,10 +10,10 @@ export default [
   ...nextTypescript,
   // Temporarily ignore files with legacy JSX/text encodings to unblock linting
   {
+    rules: {
+      "react/no-unescaped-entities": "off"
+    },
     ignores: [
-      'components/job-intention-editor.tsx',
-      'components/module-editor.tsx',
-      'components/personal-info-editor.tsx',
     ],
   },
 ];

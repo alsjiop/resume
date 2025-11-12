@@ -230,7 +230,7 @@ export default function ResumePreview({ resumeData }: ResumePreviewProps) {
                 {module.title}
               </div>
 
-              <div className="space-y-0">
+              <div className="space-y-[0.3em]">
                 {/* 渲染行 */}
                 {module.rows
                   .sort((a, b) => a.order - b.order)

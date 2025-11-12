@@ -184,22 +184,26 @@
     margin: 0 !important;
   }
 
-  .ProseMirror li p { 
-    display: inline !important; 
-    margin: 0 !important; 
+  .ProseMirror li p {
+    display: inline !important;
+    margin: 0 !important;
   }
 }
 
 /* Robust print fallbacks live in global CSS to guarantee inclusion in prod */
 @media print {
-  html, body {
+
+  html,
+  body {
     height: auto !important;
     overflow: visible !important;
     background: #fff !important;
   }
 
   /* Never print chrome/headers/toolbars */
-  .no-print { display: none !important; }
+  .no-print {
+    display: none !important;
+  }
 
   /* Remove fixed heights/scrolls from preview containers */
   .pdf-preview-page-root,
@@ -232,16 +236,21 @@
     font-size: 11pt !important;
     color: #000 !important;
   }
-  .resume-content .ProseMirror > p { 
-    margin: 0 0 5pt 0 !important; 
-    line-height: 1.6 !important; 
-  }
-  .resume-content .ProseMirror li { 
-    margin-bottom: 5pt !important; 
-    line-height: 1.6 !important; 
+
+  .resume-content .ProseMirror>p {
+    margin: 0 0 5pt 0 !important;
+    line-height: 1.6 !important;
   }
 
-  @page { size: A4; margin: 1cm; }
+  .resume-content .ProseMirror li {
+    margin-bottom: 5pt !important;
+    line-height: 1.6 !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 1cm;
+  }
 }
 
 /* 添加简历编辑器专用样式 */
@@ -270,15 +279,16 @@
     @apply w-3xl mx-auto bg-white shadow-lg p-8;
   }
 
-  /* Screen preview (editor right pane) – ensure comfortable spacing in prod */
   .resume-preview.resume-content {
-    line-height: 1.55;            /* base line height for the card */
-    font-size: 11pt;              /* keep consistent with PDF preview */
+    line-height: 1.55;
+    font-size: 11pt;
   }
-  .resume-preview.resume-content .ProseMirror > p {
+
+  .resume-preview.resume-content .ProseMirror>p {
     margin: 0 0 0.6em 0 !important;
     line-height: 1.6 !important;
   }
+
   .resume-preview.resume-content li {
     margin-bottom: 0.6em !important;
     line-height: 1.6 !important;
@@ -326,19 +336,23 @@
     font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   }
 
-  /* PDF preview (browser view) – match on-screen spacing with local dev */
   .pdf-preview-mode .resume-content {
     font-size: 11pt;
     line-height: 1.55;
   }
-  .pdf-preview-mode .resume-content .ProseMirror > p {
+
+  .pdf-preview-mode .resume-content .ProseMirror>p {
     margin: 0 0 0.6em 0 !important;
     line-height: 1.6 !important;
   }
+
   .pdf-preview-mode .resume-content .ProseMirror li {
     margin-bottom: 0.6em !important;
     line-height: 1.6 !important;
   }
-}
 
-/* moved the two @import above to satisfy CSS spec ordering */
+  .space-y-\[0\.3em\]> :where(:not([hidden]) ~ :not([hidden])) {
+    margin-block-start: 0.3em !important;
+    margin-top: 0.3em !important;
+  }
+}

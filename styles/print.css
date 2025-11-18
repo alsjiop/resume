@@ -132,6 +132,10 @@
     object-fit: cover !important;
   }
 
+  .resume-avatar.avatar-square {
+    border-radius: 0 !important;
+  }
+
   /* 图标在打印时的处理：使图标高度与文本高度一致 */
   .resume-icon {
     width: 1em !important;
